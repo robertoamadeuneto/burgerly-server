@@ -35,6 +35,9 @@ public class Cart implements Serializable {
     @Column(name = "price", precision = 12, scale = 2)
     private BigDecimal price;
 
+    @Column(name = "finished")
+    private Boolean finished;
+
     @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Collection<CartBurger> cartBurgers;
 
@@ -68,6 +71,14 @@ public class Cart implements Serializable {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Boolean getFinished() {
+        return finished;
+    }
+
+    public void setFinished(Boolean finished) {
+        this.finished = finished;
     }
 
     public Collection<CartBurger> getCartBurgers() {

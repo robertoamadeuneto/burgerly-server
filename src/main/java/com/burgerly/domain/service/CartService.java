@@ -50,4 +50,12 @@ public interface CartService {
      * @return a {@link Cart} entity.
      */
     Cart recalculatePrice(Cart cart);
+    
+    /**
+     * Finishes a {@link Cart} on database.
+     *
+     * @param cart A {@link Cart} entity.
+     * @return a {@link Cart} entity.
+     */
+    Cart finish(Cart cart);
 }

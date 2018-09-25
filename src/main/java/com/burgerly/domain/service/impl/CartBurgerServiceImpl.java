@@ -62,6 +62,8 @@ public class CartBurgerServiceImpl implements CartBurgerService {
         Cart cart = this.cartService.findById(cartBurger.getCart().getId());
         if (cart == null) {
             throw new EntityNotExistsException("Cart entity not found. ID: " + cartBurger.getId());
+        } else if (cart.getFinished() != null && cart.getFinished()) {
+            throw new RuntimeException("Cart already finished");
         }
 
         Burger burger = this.burgerService.findById(cartBurger.getBurger().getId());

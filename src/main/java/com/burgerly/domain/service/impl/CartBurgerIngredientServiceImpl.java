@@ -5,6 +5,7 @@ import com.burgerly.domain.model.CartBurger;
 import com.burgerly.domain.model.CartBurgerIngredient;
 import com.burgerly.domain.service.CartBurgerIngredientService;
 import com.burgerly.domain.service.CartBurgerService;
+import com.burgerly.domain.service.CartService;
 import com.burgerly.infra.CartBurgerIngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,12 +24,15 @@ public class CartBurgerIngredientServiceImpl implements CartBurgerIngredientServ
 
     private final CartBurgerIngredientRepository cartBurgerIngredientRepository;
     private final CartBurgerService cartBurgerService;
+    private final CartService cartService;
 
     @Autowired
     public CartBurgerIngredientServiceImpl(CartBurgerIngredientRepository cartBurgerIngredientRepository,
-            CartBurgerService cartBurgerService) {
+            CartBurgerService cartBurgerService,
+            CartService cartService) {
         this.cartBurgerIngredientRepository = cartBurgerIngredientRepository;
         this.cartBurgerService = cartBurgerService;
+        this.cartService = cartService;
     }
 
     @Override
@@ -37,7 +41,10 @@ public class CartBurgerIngredientServiceImpl implements CartBurgerIngredientServ
         CartBurger cartBurger = this.cartBurgerService.findById(cartBurgerIngredient.getCartBurger().getId());
         if (cartBurger == null) {
             throw new EntityNotExistsException("Cart Burger entity not exists. ID: " + cartBurgerIngredient.getId());
+        } else if (cartBurger.getCart().getFinished() != null && cartBurger.getCart().getFinished()) {
+            throw new RuntimeException("Cart already finished");
         }
+
         cartBurgerIngredient = this.cartBurgerIngredientRepository.save(cartBurgerIngredient);
         this.cartBurgerService.recalculatePrice(cartBurgerIngredient.getCartBurger());
         return cartBurgerIngredient;

@@ -69,4 +69,14 @@ public class CartServiceImpl implements CartService {
         cart.setPrice(price);
         return this.save(cart);
     }
+
+    @Override
+    @Transactional
+    public Cart finish(Cart cart) {
+        Cart dbCart = this.cartRepository.findOne(cart.getId());
+        if (dbCart.getFinished() != null && dbCart.getFinished()) {
+            throw new RuntimeException("Cart already finished");
+        }
+        return this.cartRepository.save(cart);
+    }
 }
