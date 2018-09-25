@@ -62,7 +62,7 @@ public class BurgerController implements Serializable {
     public ResponseEntity<?> findById(@PathVariable("id") Long id) {
         Burger burger = this.burgerService.findById(id);
         if (burger == null) {
-            throw new ResourceNotFoundException("Resource not found. ID: " + id);
+            throw new ResourceNotFoundException(id);
         }
         return new ResponseEntity<>(burger, HttpStatus.OK);
     }

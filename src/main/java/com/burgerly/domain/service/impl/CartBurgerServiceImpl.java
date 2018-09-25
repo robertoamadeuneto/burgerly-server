@@ -1,5 +1,6 @@
 package com.burgerly.domain.service.impl;
 
+import com.burgerly.application.exception.CartAlreadyFinishedException;
 import com.burgerly.application.exception.EntityNotExistsException;
 import com.burgerly.domain.model.Burger;
 import com.burgerly.domain.model.BurgerIngredient;
@@ -61,14 +62,14 @@ public class CartBurgerServiceImpl implements CartBurgerService {
 
         Cart cart = this.cartService.findById(cartBurger.getCart().getId());
         if (cart == null) {
-            throw new EntityNotExistsException("Cart entity not found. ID: " + cartBurger.getId());
+            throw new EntityNotExistsException(cartBurger.getId());
         } else if (cart.getFinished() != null && cart.getFinished()) {
-            throw new RuntimeException("Cart already finished");
+            throw new CartAlreadyFinishedException(cartBurger.getCart().getId());
         }
 
         Burger burger = this.burgerService.findById(cartBurger.getBurger().getId());
         if (burger == null) {
-            throw new EntityNotExistsException("Burger entity not found. ID: " + cartBurger.getId());
+            throw new EntityNotExistsException(cartBurger.getId());
         }
 
         BigDecimal price = new BigDecimal("0.00");
@@ -93,6 +94,9 @@ public class CartBurgerServiceImpl implements CartBurgerService {
     @Override
     @Transactional
     public void delete(CartBurger cartBurger) {
+        if (cartBurger.getCart().getFinished() != null && cartBurger.getCart().getFinished()) {
+            throw new CartAlreadyFinishedException(cartBurger.getCart().getId());
+        }
         this.cartBurgerRepository.delete(cartBurger);
         this.cartService.recalculatePrice(cartBurger.getCart());
     }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class EntityNotExistsException extends RuntimeException {
 
-    public EntityNotExistsException(String message) {
-        super(message);
+    public EntityNotExistsException(Long entityId) {
+        super("Entity not exists exception. ID: " + entityId);
     }
 }

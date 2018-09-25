@@ -1,5 +1,6 @@
 package com.burgerly.domain.service.impl;
 
+import com.burgerly.application.exception.CartAlreadyFinishedException;
 import com.burgerly.domain.model.Cart;
 import com.burgerly.domain.model.CartBurger;
 import com.burgerly.domain.service.CartService;
@@ -75,7 +76,7 @@ public class CartServiceImpl implements CartService {
     public Cart finish(Cart cart) {
         Cart dbCart = this.cartRepository.findOne(cart.getId());
         if (dbCart.getFinished() != null && dbCart.getFinished()) {
-            throw new RuntimeException("Cart already finished");
+            throw new CartAlreadyFinishedException(dbCart.getId());
         }
         return this.cartRepository.save(cart);
     }

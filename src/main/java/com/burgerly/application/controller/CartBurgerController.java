@@ -63,7 +63,7 @@ public class CartBurgerController {
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         CartBurger cartBurger = this.cartBurgerService.findById(id);
         if (cartBurger == null) {
-            throw new ResourceNotFoundException("Resource not found. ID: " + id);
+            throw new ResourceNotFoundException(id);
         }
         this.cartBurgerService.delete(cartBurger);
         return new ResponseEntity<>(HttpStatus.OK);

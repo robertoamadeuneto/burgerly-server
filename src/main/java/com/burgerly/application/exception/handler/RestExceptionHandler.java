@@ -1,5 +1,6 @@
 package com.burgerly.application.exception.handler;
 
+import com.burgerly.application.exception.CartAlreadyFinishedException;
 import com.burgerly.application.exception.ExceptionDetails;
 import com.burgerly.application.exception.ResourceNotFoundException;
 import com.burgerly.application.exception.details.ValidationExceptionDetails;
@@ -95,5 +96,19 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 .developerMessage(ex.getClass().getName())
                 .build();
         return new ResponseEntity<>(errorDetails, headers, status);
+    }
+
+    @ExceptionHandler(CartAlreadyFinishedException.class)
+    public ResponseEntity<?> handleCartAlreadyFinishedException(CartAlreadyFinishedException cafException) {
+        ExceptionDetails rfnDetails = ExceptionDetails.Builder
+                .newBuilder()
+                .timestamp(new Date().getTime())
+                .status(HttpStatus.NOT_FOUND.value())
+                .title("Cart already finished.")
+                .detail(cafException.getMessage())
+                .developerMessage(cafException.getClass().getName())
+                .build();
+
+        return new ResponseEntity<>(rfnDetails, HttpStatus.NOT_FOUND);
     }
 }

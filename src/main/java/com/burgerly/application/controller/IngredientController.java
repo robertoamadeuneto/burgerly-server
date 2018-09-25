@@ -62,7 +62,7 @@ public class IngredientController implements Serializable {
     public ResponseEntity<?> findById(@PathVariable("id") Long id) {
         Ingredient ingredient = this.ingredientService.findById(id);
         if (ingredient == null) {
-            throw new ResourceNotFoundException("Resource not found. ID: " + id);
+            throw new ResourceNotFoundException(id);
         }
         return new ResponseEntity<>(ingredient, HttpStatus.OK);
     }

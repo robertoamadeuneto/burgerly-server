@@ -1,5 +1,6 @@
 package com.burgerly.domain.service.impl;
 
+import com.burgerly.application.exception.CartAlreadyFinishedException;
 import com.burgerly.application.exception.EntityNotExistsException;
 import com.burgerly.domain.model.CartBurger;
 import com.burgerly.domain.model.CartBurgerIngredient;
@@ -40,9 +41,9 @@ public class CartBurgerIngredientServiceImpl implements CartBurgerIngredientServ
     public CartBurgerIngredient save(CartBurgerIngredient cartBurgerIngredient) {
         CartBurger cartBurger = this.cartBurgerService.findById(cartBurgerIngredient.getCartBurger().getId());
         if (cartBurger == null) {
-            throw new EntityNotExistsException("Cart Burger entity not exists. ID: " + cartBurgerIngredient.getId());
+            throw new EntityNotExistsException(cartBurgerIngredient.getId());
         } else if (cartBurger.getCart().getFinished() != null && cartBurger.getCart().getFinished()) {
-            throw new RuntimeException("Cart already finished");
+            throw new CartAlreadyFinishedException(cartBurger.getCart().getId());
         }
 
         cartBurgerIngredient = this.cartBurgerIngredientRepository.save(cartBurgerIngredient);
@@ -53,6 +54,10 @@ public class CartBurgerIngredientServiceImpl implements CartBurgerIngredientServ
     @Override
     @Transactional
     public void delete(CartBurgerIngredient cartBurgerIngredient) {
+        if (cartBurgerIngredient.getCartBurger().getCart().getFinished() != null
+                && cartBurgerIngredient.getCartBurger().getCart().getFinished()) {
+            throw new CartAlreadyFinishedException(cartBurgerIngredient.getCartBurger().getCart().getId());
+        }
         this.cartBurgerIngredientRepository.delete(cartBurgerIngredient);
         this.cartBurgerService.recalculatePrice(cartBurgerIngredient.getCartBurger());
     }

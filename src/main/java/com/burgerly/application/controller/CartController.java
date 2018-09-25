@@ -66,7 +66,7 @@ public class CartController {
     public ResponseEntity<?> findById(@PathVariable("id") Long id) {
         Cart cart = this.cartService.findById(id);
         if (cart == null) {
-            throw new ResourceNotFoundException("Resource not found. ID: " + id);
+            throw new ResourceNotFoundException(id);
         }
         return new ResponseEntity<>(cart, HttpStatus.OK);
     }
@@ -99,7 +99,7 @@ public class CartController {
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         Cart cart = this.cartService.findById(id);
         if (cart == null) {
-            throw new ResourceNotFoundException("Resource not found. ID: " + id);
+            throw new ResourceNotFoundException(id);
         }
         this.cartService.delete(cart);
         return new ResponseEntity<>(HttpStatus.OK);

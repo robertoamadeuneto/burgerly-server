@@ -65,7 +65,7 @@ public class CartBurgerIngredientController {
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         CartBurgerIngredient cartBurgerIngredient = this.cartBurgerIngredientService.findById(id);
         if (cartBurgerIngredient == null) {
-            throw new ResourceNotFoundException("Resource not found. ID: " + id);
+            throw new ResourceNotFoundException(id);
         }
         this.cartBurgerIngredientService.delete(cartBurgerIngredient);
         return new ResponseEntity<>(HttpStatus.OK);
