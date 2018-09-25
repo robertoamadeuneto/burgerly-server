@@ -108,11 +108,7 @@ public class CartBurgerServiceImpl implements CartBurgerService {
 
         Collection<CartBurgerIngredient> cartBurgerIngredients = new ArrayList<>();
         BigDecimal price = new BigDecimal("0.00");
-        if (cartBurger.getCartBurgerIngredients() != null) {
-            cartBurgerIngredients = cartBurger.getCartBurgerIngredients();
-        } else {
-            cartBurgerIngredients = this.cartBurgerIngredientRepository.findByCartBurger(cartBurger);
-        }
+        cartBurgerIngredients = this.cartBurgerIngredientRepository.findByCartBurger(cartBurger);
 
         boolean thereIsLettuce = false;
         boolean thereIsBacon = false;

@@ -12,7 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.springframework.data.annotation.Transient;
+import javax.persistence.Transient;
 
 /**
  * Class responsible for mapping the Burger entity.
