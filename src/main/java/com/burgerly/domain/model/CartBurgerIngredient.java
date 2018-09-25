@@ -1,6 +1,6 @@
 package com.burgerly.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Entity;
@@ -27,7 +27,7 @@ public class CartBurgerIngredient implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_burger_id", referencedColumnName = "id")
     private CartBurger cartBurger;
