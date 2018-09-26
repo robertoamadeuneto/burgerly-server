@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 /**
@@ -38,6 +39,7 @@ public class Cart implements Serializable {
     @Column(name = "finished")
     private Boolean finished;
 
+    @OrderBy(value = "id")
     @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Collection<CartBurger> cartBurgers;
 
