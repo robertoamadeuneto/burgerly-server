@@ -48,5 +48,5 @@ insert into burger_ingredient (burger_id, ingredient_id) values (4, 5);
 
 After that, run the `java -jar target / burgerly.jar` command to execute the application. By default, it will run on port `8080`.
 
-## Running testes
+## Running tests
 After creating the database and its default records, run the `mvn test` command to start the automated tests.
