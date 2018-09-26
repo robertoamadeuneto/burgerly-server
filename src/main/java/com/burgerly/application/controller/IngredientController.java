@@ -42,6 +42,7 @@ public class IngredientController implements Serializable {
     @GetMapping(path = "")
     @ApiOperation(value = "Returns a list with all ingredients.",
             response = Ingredient[].class,
+            produces = "application/json",
             httpMethod = "GET",
             code = 200)
     public ResponseEntity<?> findAll() {
@@ -57,6 +58,7 @@ public class IngredientController implements Serializable {
     @GetMapping(path = "/{id}")
     @ApiOperation(value = "Returns a ingredient by a given identifier.",
             response = Ingredient.class,
+            produces = "application/json",
             httpMethod = "GET",
             code = 200)
     public ResponseEntity<?> findById(@PathVariable("id") Long id) {

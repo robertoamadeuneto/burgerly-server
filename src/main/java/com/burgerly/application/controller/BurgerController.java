@@ -42,6 +42,7 @@ public class BurgerController implements Serializable {
     @GetMapping(path = "")
     @ApiOperation(value = "Returns a list with all burgers.",
             response = Burger[].class,
+            produces = "application/json",
             httpMethod = "GET",
             code = 200)
     public ResponseEntity<?> findAll() {
@@ -57,6 +58,7 @@ public class BurgerController implements Serializable {
     @GetMapping(path = "/{id}")
     @ApiOperation(value = "Returns a burger by a given identifier.",
             response = Burger.class,
+            produces = "application/json",
             httpMethod = "GET",
             code = 200)
     public ResponseEntity<?> findById(@PathVariable("id") Long id) {

@@ -46,6 +46,7 @@ public class CartController {
     @GetMapping(path = "")
     @ApiOperation(value = "Returns a list with all carts.",
             response = Cart[].class,
+            produces = "application/json",
             httpMethod = "GET",
             code = 200)
     public ResponseEntity<?> findAll() {
@@ -61,6 +62,7 @@ public class CartController {
     @GetMapping(path = "/{id}")
     @ApiOperation(value = "Returns a cart by a given identifier.",
             response = Cart.class,
+            produces = "application/json",
             httpMethod = "GET",
             code = 200)
     public ResponseEntity<?> findById(@PathVariable("id") Long id) {
@@ -80,6 +82,8 @@ public class CartController {
     @PostMapping(path = "")
     @ApiOperation(value = "Creates a new cart.",
             response = Cart.class,
+            consumes = "application/json",
+            produces = "application/json",
             httpMethod = "POST",
             code = 201)
     public ResponseEntity<?> save(@RequestBody Cart cart) {
@@ -114,6 +118,8 @@ public class CartController {
     @PatchMapping(path = "")
     @ApiOperation(value = "Finishes a new.",
             response = Cart.class,
+            consumes = "application/json",
+            produces = "application/json",
             httpMethod = "PATCH",
             code = 200)
     public ResponseEntity<?> finish(@RequestBody Cart cart) {

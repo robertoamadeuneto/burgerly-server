@@ -44,6 +44,8 @@ public class CartBurgerController {
     @PostMapping(path = "")
     @ApiOperation(value = "Creates a new cart burger.",
             response = CartBurger.class,
+            consumes = "application/json",
+            produces = "application/json",
             httpMethod = "POST",
             code = 201)
     public ResponseEntity<?> save(@RequestBody CartBurger cartBurger) {
