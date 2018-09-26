@@ -9,7 +9,10 @@ To build this project, run `mvn -Pdevelopment clean install`. This profile will 
 
 ## Run
 A PostgreSQL database called `burgerly` is required to run this project. 
-Once you create it, you need to execute the commands below to create the application's default records:
+
+After that, run the `java -jar target/burgerly.jar` command to execute the application and create all database tables.
+
+Once you run it, you need to execute the script below on PostgreSQL database to create the application's default records:
 
 ```
 -- Ingredients
@@ -46,7 +49,5 @@ insert into burger_ingredient (burger_id, ingredient_id) values (4, 4);
 insert into burger_ingredient (burger_id, ingredient_id) values (4, 5);
 ```
 
-After that, run the `java -jar target / burgerly.jar` command to execute the application. By default, it will run on port `8080`.
-
 ## Running tests
-After creating the database and its default records, run the `mvn test` command to start the automated tests.
+After creating the database and its default records, use the `mvn test` command to run the automated tests.
